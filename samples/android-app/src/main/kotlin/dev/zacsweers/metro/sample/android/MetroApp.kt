@@ -3,7 +3,6 @@
 package dev.zacsweers.metro.sample.android
 
 import android.app.Application
-import androidx.annotation.VisibleForTesting
 import androidx.work.Configuration
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
@@ -12,9 +11,9 @@ import dev.zacsweers.metro.createGraphFactory
 import dev.zacsweers.metrox.android.MetroAppComponentProviders
 import dev.zacsweers.metrox.android.MetroApplication
 
-class MetroApp : Application(), MetroApplication, Configuration.Provider {
+open class MetroApp : Application(), MetroApplication, Configuration.Provider {
 
-  internal var appGraph: AppGraph = createGraphFactory<AppGraph.Factory>().create(this)
+  private val appGraph by lazy { createGraph() }
 
   override val appComponentProviders: MetroAppComponentProviders
     get() = appGraph
@@ -27,9 +26,8 @@ class MetroApp : Application(), MetroApplication, Configuration.Provider {
     scheduleBackgroundWork()
   }
 
-  @VisibleForTesting
-  fun setTestGraph(graph: AppGraph) {
-    appGraph = graph
+  open fun createGraph(): AppGraph {
+    return createGraphFactory<AppGraph.Factory>().create(this)
   }
 
   private fun scheduleBackgroundWork() {

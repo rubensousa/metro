@@ -11,7 +11,7 @@ android {
 
   defaultConfig {
     applicationId = "dev.zacsweers.metro.sample.android"
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "dev.zacsweers.metro.sample.android.MetroTestRunner"
     versionCode = 1
     versionName = "1.0"
   }
@@ -41,3 +41,5 @@ dependencies {
   androidTestImplementation(libs.androidx.test.espresso)
   androidTestImplementation(libs.androidx.test.runner)
 }
+
+metro { reportsDestination.set(layout.buildDirectory.dir("reports/metro")) }

@@ -28,9 +28,6 @@ class MainActivity(private val fragmentFactory: FragmentFactory) :
   override fun onCreate(savedInstanceState: Bundle?) {
     enableEdgeToEdge()
     super.onCreate(savedInstanceState)
-
-    // This is somehow the fake instance in tests, but ViewModel still sees the original binding
-    val tracker = (applicationContext as MetroApp).appGraph.tracker
     if (savedInstanceState == null) {
       supportFragmentManager.commit { replace<CounterFragment>(R.id.fragment_container) }
     }
